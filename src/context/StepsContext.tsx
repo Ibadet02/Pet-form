@@ -5,7 +5,7 @@ interface StepsContextType {
   currentStep: number;
   moveToLeft: () => void;
   moveToRight: () => void;
-  goToStep: () => void;
+  goToStep: (stepNumber: number) => void;
 }
 
 type StepsProviderProps = PropsWithChildren & StepsContextType;
@@ -23,7 +23,7 @@ export const StepsProvider = ({
     <StepsContext.Provider
       value={{ currentStep, moveToLeft, moveToRight, goToStep }}
     >
-      {children}
+      <form action="POST">{children}</form>
     </StepsContext.Provider>
   );
 };

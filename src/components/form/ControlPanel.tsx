@@ -30,16 +30,11 @@ const ControlPanel = () => {
     };
   }
 
-  function dispatchActionWithPayload<P>(
-    action: ActionCreatorWithPayload<P>,
-    payload: P
-  ) {
-    return () => {
+  function dispatchActionWithPayload<P>(action: ActionCreatorWithPayload<P>) {
+    return (payload: P) => {
       dispatch(action(payload));
     };
   }
-
-  console.log(currentStep);
 
   return (
     <div>
@@ -47,7 +42,7 @@ const ControlPanel = () => {
         currentStep={currentStep}
         moveToLeft={dispatchActionWithoutPayload(previous)}
         moveToRight={dispatchActionWithoutPayload(next)}
-        goToStep={dispatchActionWithPayload(navigate, 2)}
+        goToStep={dispatchActionWithPayload(navigate)}
       >
         <FormProgress />
         <Step stepKey="ownerInfo">

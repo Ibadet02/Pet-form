@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import StepOrders from "../../constants/stepOrders";
-
-const numberOfSteps = Object.keys(StepOrders).length;
+import { numberOfSteps } from "../../constants/stepOrders";
 
 interface ProgressState {
   currentProgress: number;
