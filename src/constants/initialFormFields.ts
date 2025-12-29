@@ -8,7 +8,7 @@ export const INITIAL_OWNER_INFO_VALUES = {
   address: "",
   city: "",
   country: "",
-  acceptTerms: false,
+  acceptTerms: true,
 };
 
 export const INITIAL_PET_INFO_VALUES = {
