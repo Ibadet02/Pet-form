@@ -1,84 +1,40 @@
-export interface OwnerInfo {
-  ownerFirstName: string;
-  ownerLastName: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  country: string;
-  acceptTerms?: boolean;
-}
+import { FieldConfig, HealthInfo, OwnerInfo, PetInfo } from "../types/form";
 
-export interface PetInfo {
-  petName: string;
-  petType: string;
-  breed: string;
-  gender: string;
-  dateOfBirth: string;
-  weight: number;
-  isAdopted: boolean;
-  adoptionCenterName?: string;
-  adoptionDate?: string;
-}
-
-export interface HealthInfo {
-  isVaccinated: boolean;
-  vaccinations?: string[];
-  hasAllergies: boolean;
-  allergyDetails?: string;
-  isNeutered: boolean;
-  lastVetVisit?: string;
-  hasChronicIllness: boolean;
-  chronicIllnessDetails?: string;
-}
-
-const initialFormFields: {
-  ownerInfoFields: OwnerInfo;
-  petInfoFields: PetInfo;
-  healthFields: HealthInfo;
-} = {
-  ownerInfoFields: {
-    ownerFirstName: "",
-    ownerLastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    country: "",
-  },
-  petInfoFields: {
-    petName: "",
-    petType: "",
-    breed: "",
-    gender: "",
-    dateOfBirth: "",
-    weight: 0,
-    isAdopted: false,
-    adoptionCenterName: "",
-    adoptionDate: "",
-  },
-  healthFields: {
-    isVaccinated: true,
-    vaccinations: [],
-    hasAllergies: false,
-    allergyDetails: "",
-    isNeutered: false,
-    lastVetVisit: "",
-    hasChronicIllness: false,
-    chronicIllnessDetails: "",
-  },
+export const INITIAL_OWNER_INFO_VALUES = {
+  ownerFirstName: "",
+  ownerLastName: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  country: "",
+  acceptTerms: false,
 };
 
-type Field = "text" | "email" | "tel" | "textarea" | "checkbox" | "number";
+export const INITIAL_PET_INFO_VALUES = {
+  petName: "",
+  petType: "",
+  breed: "",
+  gender: "",
+  dateOfBirth: "",
+  weight: 0,
+  isAdopted: false,
+  adoptionCenterName: "",
+  adoptionDate: "",
+};
 
-export interface FieldConfig {
-  label: string;
-  name: string;
-  type: Field;
-  id: number;
-}
+export const INITIAL_HEALTH_INFO_VALUES = {
+  isVaccinated: true,
+  vaccinations: "",
+  hasAllergies: false,
+  allergyDetails: "",
+  isNeutered: true,
+  lastVetVisit: "",
+  hasChronicIllness: false,
+  chronicIllnessDetails: "",
+};
 
-export const OWNER_INFO_FIELDS: FieldConfig[] = [
+export const OWNER_INFO_FIELDS: FieldConfig<OwnerInfo>[] = [
   {
     id: 1,
     name: "ownerFirstName",
@@ -124,12 +80,12 @@ export const OWNER_INFO_FIELDS: FieldConfig[] = [
   {
     id: 8,
     name: "acceptTerms",
-    type: "text",
+    type: "checkbox",
     label: "Accept Terms",
   },
-] as const satisfies FieldConfig[];
+] as const;
 
-export const PET_INFO_FIELDS: FieldConfig[] = [
+export const PET_INFO_FIELDS: FieldConfig<PetInfo>[] = [
   {
     id: 1,
     name: "petName",
@@ -184,13 +140,13 @@ export const PET_INFO_FIELDS: FieldConfig[] = [
     type: "text",
     label: "Adoption Date",
   },
-];
+] as const;
 
-export const HEALTH_INFO_FIELDS: FieldConfig[] = [
+export const HEALTH_INFO_FIELDS: FieldConfig<HealthInfo>[] = [
   {
     id: 1,
     name: "isVaccinated",
-    type: "text",
+    type: "checkbox",
     label: "Is Vaccinated",
   },
   {
@@ -202,7 +158,7 @@ export const HEALTH_INFO_FIELDS: FieldConfig[] = [
   {
     id: 3,
     name: "hasAllergies",
-    type: "text",
+    type: "checkbox",
     label: "Has Allergies",
   },
   {
@@ -214,7 +170,7 @@ export const HEALTH_INFO_FIELDS: FieldConfig[] = [
   {
     id: 5,
     name: "isNeutered",
-    type: "text",
+    type: "checkbox",
     label: "Is Neutered",
   },
   {
@@ -226,7 +182,7 @@ export const HEALTH_INFO_FIELDS: FieldConfig[] = [
   {
     id: 7,
     name: "hasChronicIllness",
-    type: "text",
+    type: "checkbox",
     label: "Has Chronic Illness",
   },
   {
@@ -235,33 +191,4 @@ export const HEALTH_INFO_FIELDS: FieldConfig[] = [
     type: "text",
     label: "Chronic Illness Details",
   },
-];
-
-type FieldValue<T extends FieldConfig> = T["type"] extends "number"
-  ? number
-  : T["type"] extends "checkbox"
-  ? boolean
-  : string;
-
-export type OwnerInfoFormValues = {
-  [F in (typeof OWNER_INFO_FIELDS)[number] as F["name"]]: FieldValue<F>;
-};
-
-// export type OwnerInfoFormValues = {
-//   ownerFirstName: string;
-//   ownerLastName: string;
-//   email: string;
-//   phone: string;
-//   address: string;
-//   city: string;
-//   country: string;
-//   acceptTerms: string;
-// };
-
-export const INITIAL_OWNER_INFO_VALUES = OWNER_INFO_FIELDS.reduce(
-  (acc, field: FieldConfig) => {
-    acc[field.name as keyof OwnerInfoFormValues] = "";
-    return acc;
-  },
-  {} as OwnerInfoFormValues
-);
+] as const;

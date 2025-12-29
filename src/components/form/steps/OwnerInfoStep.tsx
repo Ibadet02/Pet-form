@@ -18,6 +18,7 @@ const OwnerInfoStep = () => {
             aria-describedby="my-helper-text"
             name={name}
             type={type}
+            value={ownerInfoForm[name]}
           />
           <FormHelperText id="my-helper-text">
             We'll never share your email.
