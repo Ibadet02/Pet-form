@@ -1,8 +1,4 @@
-import { ChangeEvent, useState } from "react";
-import {
-  INITIAL_OWNER_INFO_VALUES,
-  OWNER_INFO_FIELDS,
-} from "../../../constants/initialFormFields";
+import { OWNER_INFO_FIELDS } from "../../../constants/initialFormFields";
 import {
   Checkbox,
   FormControl,

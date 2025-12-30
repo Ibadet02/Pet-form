@@ -24,6 +24,10 @@ import {
 import { FormikValues } from "../../types/form";
 
 const ControlPanel = () => {
+  const currentStep = useAppSelector(
+    (state) => state.formProgress.currentProgress
+  );
+  const dispatch = useAppDispatch();
   const formik = useFormik<FormikValues>({
     initialValues: {
       ...INITIAL_OWNER_INFO_VALUES,
@@ -34,10 +38,6 @@ const ControlPanel = () => {
       console.log("Form values submitted: ", values);
     },
   });
-  const currentStep = useAppSelector(
-    (state) => state.formProgress.currentProgress
-  );
-  const dispatch = useAppDispatch();
 
   function dispatchActionWithoutPayload<P>(
     action: ActionCreatorWithoutPayload

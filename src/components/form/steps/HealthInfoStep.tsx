@@ -1,8 +1,4 @@
-import { ChangeEvent, useState } from "react";
-import {
-  HEALTH_INFO_FIELDS,
-  INITIAL_HEALTH_INFO_VALUES,
-} from "../../../constants/initialFormFields";
+import { HEALTH_INFO_FIELDS } from "../../../constants/initialFormFields";
 import {
   Checkbox,
   FormControl,

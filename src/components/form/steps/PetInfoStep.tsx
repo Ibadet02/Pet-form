@@ -1,8 +1,4 @@
-import { ChangeEvent, useState } from "react";
-import {
-  INITIAL_PET_INFO_VALUES,
-  PET_INFO_FIELDS,
-} from "../../../constants/initialFormFields";
+import { PET_INFO_FIELDS } from "../../../constants/initialFormFields";
 import {
   Checkbox,
   FormControl,
@@ -18,8 +14,7 @@ interface PetInfoStepProps {
 }
 
 const PetInfoStep = ({ formik }: PetInfoStepProps) => {
-
-  const {values, handleChange} = formik;
+  const { values, handleChange } = formik;
 
   return (
     <div>
