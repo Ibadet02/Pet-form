@@ -10,20 +10,15 @@ import {
   Input,
   InputLabel,
 } from "@mui/material";
+import { FormikProps } from "formik";
+import { FormikValues } from "../../../types/form";
 
-const HealthInfoStep = () => {
-  const [healthInfoForm, setHealthInfoForm] = useState(
-    INITIAL_HEALTH_INFO_VALUES
-  );
+interface HealthInfoStepProps {
+  formik: FormikProps<FormikValues>;
+}
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, name, checked, type } = event.target;
-
-    setHealthInfoForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+const HealthInfoStep = ({ formik }: HealthInfoStepProps) => {
+  const { values, handleChange } = formik;
 
   return (
     <div>
@@ -34,7 +29,7 @@ const HealthInfoStep = () => {
               control={
                 <Checkbox
                   name={name}
-                  checked={Boolean(healthInfoForm[name])}
+                  checked={Boolean(values[name])}
                   onChange={handleChange}
                 />
               }
@@ -45,7 +40,7 @@ const HealthInfoStep = () => {
               <InputLabel htmlFor={name}>{label}</InputLabel>
               <Input
                 type={type}
-                value={healthInfoForm[name]}
+                value={values[name]}
                 name={name}
                 onChange={handleChange}
               />

@@ -10,19 +10,15 @@ import {
   Input,
   InputLabel,
 } from "@mui/material";
+import { FormikProps } from "formik";
+import { FormikValues } from "../../../types/form";
 
-const OwnerInfoStep = () => {
-  const [ownerInfoForm, setOwnerInfoForm] = useState(INITIAL_OWNER_INFO_VALUES);
+interface OwnerInfoStepProps {
+  formik: FormikProps<FormikValues>;
+}
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, name, checked, type } = event.target;
-
-    setOwnerInfoForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
+const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
+  const { values, handleChange } = formik;
   return (
     <div>
       {OWNER_INFO_FIELDS.map(({ id, name, label, type }) => (
@@ -32,7 +28,7 @@ const OwnerInfoStep = () => {
               control={
                 <Checkbox
                   name={name}
-                  checked={Boolean(ownerInfoForm[name])}
+                  checked={Boolean(values[name])}
                   onChange={handleChange}
                 />
               }
@@ -45,7 +41,7 @@ const OwnerInfoStep = () => {
                 id={name}
                 name={name}
                 type={type}
-                value={ownerInfoForm[name]}
+                value={values[name]}
                 onChange={handleChange}
               />
             </>

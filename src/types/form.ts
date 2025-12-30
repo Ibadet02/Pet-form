@@ -1,3 +1,4 @@
+import { FormikProps } from "formik";
 import {
   INITIAL_HEALTH_INFO_VALUES,
   INITIAL_OWNER_INFO_VALUES,
@@ -31,3 +32,5 @@ export interface FieldConfig<T> {
   type: FieldType;
   id: number;
 }
+
+export type FormikValues = OwnerInfo & PetInfo & HealthInfo;

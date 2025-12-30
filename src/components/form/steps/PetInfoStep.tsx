@@ -10,18 +10,16 @@ import {
   Input,
   InputLabel,
 } from "@mui/material";
+import { FormikProps } from "formik";
+import { FormikValues } from "../../../types/form";
 
-const PetInfoStep = () => {
-  const [petInfoForm, setPetInfoForm] = useState(INITIAL_PET_INFO_VALUES);
+interface PetInfoStepProps {
+  formik: FormikProps<FormikValues>;
+}
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, name, checked, type } = event.target;
+const PetInfoStep = ({ formik }: PetInfoStepProps) => {
 
-    setPetInfoForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  const {values, handleChange} = formik;
 
   return (
     <div>
@@ -32,7 +30,7 @@ const PetInfoStep = () => {
               control={
                 <Checkbox
                   name={name}
-                  checked={Boolean(petInfoForm[name])}
+                  checked={Boolean(values[name])}
                   onChange={handleChange}
                 />
               }
@@ -43,7 +41,7 @@ const PetInfoStep = () => {
               <InputLabel htmlFor={name}>{label}</InputLabel>
               <Input
                 type={type}
-                value={petInfoForm[name]}
+                value={values[name]}
                 name={name}
                 onChange={handleChange}
               />

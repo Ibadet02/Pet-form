@@ -21,10 +21,10 @@ import {
   INITIAL_OWNER_INFO_VALUES,
   INITIAL_PET_INFO_VALUES,
 } from "../../constants/initialFormFields";
-import { HealthInfo, OwnerInfo, PetInfo } from "../../types/form";
+import { FormikValues } from "../../types/form";
 
 const ControlPanel = () => {
-  const formik = useFormik<OwnerInfo & PetInfo & HealthInfo>({
+  const formik = useFormik<FormikValues>({
     initialValues: {
       ...INITIAL_OWNER_INFO_VALUES,
       ...INITIAL_PET_INFO_VALUES,
@@ -64,13 +64,13 @@ const ControlPanel = () => {
         <form onSubmit={formik.handleSubmit}>
           <FormProgress />
           <Step stepKey="ownerInfo">
-            <OwnerInfoStep />
+            <OwnerInfoStep formik={formik} />
           </Step>
           <Step stepKey="petInfo">
-            <PetInfoStep />
+            <PetInfoStep formik={formik} />
           </Step>
           <Step stepKey="healthInfo">
-            <HealthInfoStep />
+            <HealthInfoStep formik={formik} />
           </Step>
           <DirectionalButton direction="left" />
           <DirectionalButton direction="right" />
