@@ -11,8 +11,6 @@ import {
   InputLabel,
 } from "@mui/material";
 
-interface HealthInfoStepProps {}
-
 const HealthInfoStep = () => {
   const [healthInfoForm, setHealthInfoForm] = useState(
     INITIAL_HEALTH_INFO_VALUES

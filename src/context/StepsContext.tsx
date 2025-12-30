@@ -1,4 +1,3 @@
-import { Action, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { PropsWithChildren, createContext, useContext } from "react";
 
 interface StepsContextType {
@@ -23,7 +22,7 @@ export const StepsProvider = ({
     <StepsContext.Provider
       value={{ currentStep, moveToLeft, moveToRight, goToStep }}
     >
-      <form action="POST">{children}</form>
+      {children}
     </StepsContext.Provider>
   );
 };
