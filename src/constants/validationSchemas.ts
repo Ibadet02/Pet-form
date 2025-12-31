@@ -1,5 +1,5 @@
 import Yup from "yup";
-import { OwnerInfo } from "../types/form";
+import { HealthInfo, OwnerInfo, PetInfo } from "../types/form";
 
 export const ownerInfoSchema: Yup.ObjectSchema<OwnerInfo> = Yup.object({
   ownerFirstName: Yup.string().required("First name is required"),
@@ -13,4 +13,27 @@ export const ownerInfoSchema: Yup.ObjectSchema<OwnerInfo> = Yup.object({
     [true],
     "You must accept the terms to proceed"
   ),
+});
+
+export const petInfoSchema: Yup.ObjectSchema<PetInfo> = Yup.object({
+  petName: Yup.string().required(),
+  petType: Yup.string().required(),
+  breed: Yup.string().required(),
+  gender: Yup.string().required(),
+  dateOfBirth: Yup.string().required(),
+  weight: Yup.number().required(),
+  isAdopted: Yup.boolean().oneOf([true, false]).required(),
+  adoptionCenterName: Yup.string().required(),
+  adoptionDate: Yup.string().required(),
+});
+
+export const healthInfoSchema: Yup.ObjectSchema<HealthInfo> = Yup.object({
+  isVaccinated: Yup.boolean().oneOf([true, false]),
+  vaccinations: Yup.string().required(),
+  hasAllergies: Yup.boolean().oneOf([true, false]),
+  allergyDetails: Yup.string().required(),
+  isNeutered: Yup.boolean().oneOf([true, false]),
+  lastVetVisit: Yup.string().required(),
+  hasChronicIllness: Yup.boolean().oneOf([true, false]),
+  chronicIllnessDetails: Yup.string().required(),
 });
