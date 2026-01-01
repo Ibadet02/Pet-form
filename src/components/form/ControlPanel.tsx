@@ -22,6 +22,7 @@ import {
   INITIAL_PET_INFO_VALUES,
 } from "../../constants/initialFormFields";
 import { FormikValues } from "../../types/form";
+import { validationSchemas } from "../../constants/validationSchemas";
 
 const ControlPanel = () => {
   const currentStep = useAppSelector(
@@ -34,6 +35,7 @@ const ControlPanel = () => {
       ...INITIAL_PET_INFO_VALUES,
       ...INITIAL_HEALTH_INFO_VALUES,
     },
+    validationSchema: validationSchemas[currentStep],
     onSubmit: (values) => {
       console.log("Form values submitted: ", values);
     },
@@ -73,7 +75,7 @@ const ControlPanel = () => {
             <HealthInfoStep formik={formik} />
           </Step>
           <DirectionalButton direction="left" />
-          <DirectionalButton direction="right" />
+          <DirectionalButton direction="right" formik={formik} />
         </form>
       </StepsProvider>
     </div>

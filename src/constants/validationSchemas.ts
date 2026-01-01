@@ -1,4 +1,4 @@
-import Yup from "yup";
+import * as Yup from "yup";
 import { HealthInfo, OwnerInfo, PetInfo } from "../types/form";
 
 export const ownerInfoSchema: Yup.ObjectSchema<OwnerInfo> = Yup.object({
@@ -37,3 +37,9 @@ export const healthInfoSchema: Yup.ObjectSchema<HealthInfo> = Yup.object({
   hasChronicIllness: Yup.boolean().oneOf([true, false]),
   chronicIllnessDetails: Yup.string().required(),
 });
+
+export const validationSchemas = [
+  petInfoSchema,
+  ownerInfoSchema,
+  healthInfoSchema,
+];
