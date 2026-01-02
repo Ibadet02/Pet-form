@@ -17,9 +17,6 @@ const DirectionalButton = ({ direction, formik }: DirectionalButtonProps) => {
     try {
       if (formik && isNext) {
         const errors = await formik.validateForm();
-
-        console.log("errors: ", errors);
-
         const errorLength = Object.keys(errors).length;
 
         if (errorLength === 0) {

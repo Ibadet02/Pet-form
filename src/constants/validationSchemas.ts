@@ -39,7 +39,7 @@ export const healthInfoSchema: Yup.ObjectSchema<HealthInfo> = Yup.object({
 });
 
 export const validationSchemas = [
-  petInfoSchema,
   ownerInfoSchema,
+  petInfoSchema,
   healthInfoSchema,
 ];

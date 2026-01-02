@@ -3,8 +3,8 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  Input,
   InputLabel,
+  TextField,
 } from "@mui/material";
 import { FormikProps } from "formik";
 import { FormikValues } from "../../../types/form";
@@ -14,7 +14,7 @@ interface OwnerInfoStepProps {
 }
 
 const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
-  const { values, handleChange } = formik;
+  const { values, handleChange, touched, errors } = formik;
   return (
     <div>
       {OWNER_INFO_FIELDS.map(({ id, name, label, type }) => (
@@ -33,12 +33,14 @@ const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
           ) : (
             <>
               <InputLabel htmlFor={name}>{label}</InputLabel>
-              <Input
+              <TextField
                 id={name}
                 name={name}
                 type={type}
                 value={values[name]}
                 onChange={handleChange}
+                error={Boolean(touched[name] && errors[name])}
+                helperText={touched[name] && errors[name] ? errors[name] : ""}
               />
             </>
           )}

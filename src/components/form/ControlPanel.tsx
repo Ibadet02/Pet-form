@@ -35,7 +35,7 @@ const ControlPanel = () => {
       ...INITIAL_PET_INFO_VALUES,
       ...INITIAL_HEALTH_INFO_VALUES,
     },
-    validationSchema: validationSchemas[currentStep],
+    validationSchema: validationSchemas[currentStep - 1],
     onSubmit: (values) => {
       console.log("Form values submitted: ", values);
     },
