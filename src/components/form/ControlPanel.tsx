@@ -23,6 +23,7 @@ import {
 } from "../../constants/initialFormFields";
 import { FormikValues } from "../../types/form";
 import { validationSchemas } from "../../constants/validationSchemas";
+import StepContent from "./steps/StepContent";
 
 const ControlPanel = () => {
   const currentStep = useAppSelector(
@@ -66,13 +67,13 @@ const ControlPanel = () => {
         <form onSubmit={formik.handleSubmit}>
           <FormProgress />
           <Step stepKey="ownerInfo">
-            <OwnerInfoStep formik={formik} />
+            <StepContent formik={formik} />
           </Step>
           <Step stepKey="petInfo">
-            <PetInfoStep formik={formik} />
+            <StepContent formik={formik} />
           </Step>
           <Step stepKey="healthInfo">
-            <HealthInfoStep formik={formik} />
+            <StepContent formik={formik} />
           </Step>
           <DirectionalButton direction="left" />
           <DirectionalButton direction="right" formik={formik} />

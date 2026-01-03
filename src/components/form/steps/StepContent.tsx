@@ -1,4 +1,8 @@
-import { OWNER_INFO_FIELDS } from "../../../constants/initialFormFields";
+import {
+  OWNER_INFO_FIELDS,
+  PET_INFO_FIELDS,
+  HEALTH_INFO_FIELDS,
+} from "../../../constants/initialFormFields";
 import {
   Checkbox,
   FormControl,
@@ -8,17 +12,31 @@ import {
 } from "@mui/material";
 import { FormikProps } from "formik";
 import { FormikValues } from "../../../types/form";
+import { useSteps } from "../../../context/StepsContext";
 
-interface OwnerInfoStepProps {
+interface StepContentProps {
   formik: FormikProps<FormikValues>;
 }
 
-const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
+const StepContent = ({ formik }: StepContentProps) => {
+  const { currentStep } = useSteps();
   const { values, handleChange, touched, errors } = formik;
+
+  const getFields = () => {
+    if (currentStep === 1) {
+      return OWNER_INFO_FIELDS;
+    }
+
+    if (currentStep === 2) {
+      return PET_INFO_FIELDS;
+    }
+
+    return HEALTH_INFO_FIELDS;
+  };
 
   return (
     <div>
-      {OWNER_INFO_FIELDS.map(({ id, name, label, type }) => {
+      {getFields().map(({ id, name, label, type }) => {
         const hasError = Boolean(errors[name] && touched[name]);
 
         return (
@@ -56,4 +74,4 @@ const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
   );
 };
 
-export default OwnerInfoStep;
+export default StepContent;
