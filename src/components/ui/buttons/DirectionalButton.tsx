@@ -17,8 +17,6 @@ const DirectionalButton = ({ direction, formik }: DirectionalButtonProps) => {
   const handleNext = async () => {
     if (isNext) {
       const isValid = await isFormValid(formik);
-      console.log("isNext: ", isNext);
-      console.log("isValid: ", isValid);
       if (isValid) {
         moveToRight();
       }

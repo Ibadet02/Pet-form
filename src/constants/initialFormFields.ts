@@ -119,13 +119,13 @@ export const PET_INFO_FIELDS: FieldConfig<PetInfo>[] = [
   {
     id: 6,
     name: "weight",
-    type: "text",
+    type: "number",
     label: "Weight",
   },
   {
     id: 7,
     name: "isAdopted",
-    type: "text",
+    type: "checkbox",
     label: "Is Adopted",
   },
   {

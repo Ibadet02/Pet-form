@@ -1,34 +1,57 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { numberOfSteps } from "../../constants/stepOrders";
 
-interface ProgressState {
-  currentProgress: number;
-}
+type ProgressState = {
+  currentStep: boolean;
+  isValidated: boolean;
+}[];
 
-const initialState: ProgressState = {
-  currentProgress: 1,
-};
+const initialState: ProgressState = [
+  {
+    currentStep: true,
+    isValidated: false,
+  },
+  {
+    currentStep: false,
+    isValidated: false,
+  },
+  {
+    currentStep: false,
+    isValidated: false,
+  },
+];
 
 const formProgressSlice = createSlice({
   name: "formProgress",
   initialState,
   reducers: {
     next: (state) => {
-      if (state.currentProgress < numberOfSteps) {
-        state.currentProgress++;
-      } else {
-        state.currentProgress = 1;
+      console.log(state);
+      const currIndex = state.findIndex((step) => step.currentStep);
+      const isStepValidated = state[currIndex].isValidated;
+
+      if (isStepValidated && state[currIndex + 1]) {
+        state[currIndex].currentStep = false;
+        state[currIndex + 1].currentStep = true;
       }
     },
     previous: (state) => {
-      if (state.currentProgress > 1) {
-        state.currentProgress--;
-      } else {
-        state.currentProgress = numberOfSteps;
+      const currIndex = state.findIndex((step) => step.currentStep);
+      const isStepValidated = state[currIndex].isValidated;
+
+      if (isStepValidated && state[currIndex - 1]) {
+        state[currIndex].currentStep = false;
+        state[currIndex - 1].currentStep = true;
       }
     },
     navigate: (state, action: PayloadAction<number>) => {
-      state.currentProgress = action.payload;
+      const currIndex = state.findIndex((step) => step.currentStep);
+      const isStepValidated = state[currIndex].isValidated;
+
+      if (isStepValidated) {
+        state[currIndex].currentStep = false;
+        state[action.payload].currentStep = true;
+      }
     },
   },
   extraReducers: (builder) => {},

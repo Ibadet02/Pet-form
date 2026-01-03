@@ -1,8 +1,5 @@
 import FormProgress from "./FormProgress";
 import DirectionalButton from "../ui/buttons/DirectionalButton";
-import OwnerInfoStep from "./steps/OwnerInfoStep";
-import PetInfoStep from "./steps/PetInfoStep";
-import HealthInfoStep from "./steps/HealthInfoStep";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   next,
@@ -26,9 +23,8 @@ import { validationSchemas } from "../../constants/validationSchemas";
 import StepContent from "./steps/StepContent";
 
 const ControlPanel = () => {
-  const currentStep = useAppSelector(
-    (state) => state.formProgress.currentProgress
-  );
+  const formSteps = useAppSelector((state) => state.formProgress);
+  const currentStep = formSteps.findIndex((step) => step.currentStep);
   const dispatch = useAppDispatch();
   const formik = useFormik<FormikValues>({
     initialValues: {
@@ -36,7 +32,7 @@ const ControlPanel = () => {
       ...INITIAL_PET_INFO_VALUES,
       ...INITIAL_HEALTH_INFO_VALUES,
     },
-    validationSchema: validationSchemas[currentStep - 1],
+    validationSchema: validationSchemas[currentStep],
     onSubmit: (values) => {
       console.log("Form values submitted: ", values);
     },
@@ -65,16 +61,12 @@ const ControlPanel = () => {
         goToStep={dispatchActionWithPayload(navigate)}
       >
         <form onSubmit={formik.handleSubmit}>
-          <FormProgress />
-          <Step stepKey="ownerInfo">
-            <StepContent formik={formik} />
-          </Step>
-          <Step stepKey="petInfo">
-            <StepContent formik={formik} />
-          </Step>
-          <Step stepKey="healthInfo">
-            <StepContent formik={formik} />
-          </Step>
+          <FormProgress formik={formik} />
+          {formSteps.map((step, index) => (
+            <Step key={index} isCurrentStep={step.currentStep}>
+              <StepContent formik={formik} />
+            </Step>
+          ))}
           <DirectionalButton direction="left" />
           <DirectionalButton direction="right" formik={formik} />
         </form>
