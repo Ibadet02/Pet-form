@@ -3,7 +3,7 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  InputLabel,
+  FormHelperText,
   TextField,
 } from "@mui/material";
 import { FormikProps } from "formik";
@@ -15,37 +15,43 @@ interface OwnerInfoStepProps {
 
 const OwnerInfoStep = ({ formik }: OwnerInfoStepProps) => {
   const { values, handleChange, touched, errors } = formik;
+
   return (
     <div>
-      {OWNER_INFO_FIELDS.map(({ id, name, label, type }) => (
-        <FormControl key={id}>
-          {type === "checkbox" ? (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name={name}
-                  checked={Boolean(values[name])}
-                  onChange={handleChange}
+      {OWNER_INFO_FIELDS.map(({ id, name, label, type }) => {
+        const hasError = Boolean(errors[name] && touched[name]);
+
+        return (
+          <FormControl key={id} error={hasError}>
+            {type === "checkbox" ? (
+              <>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name={name}
+                      checked={Boolean(values[name])}
+                      onChange={handleChange}
+                    />
+                  }
+                  label={label}
                 />
-              }
-              label={label}
-            />
-          ) : (
-            <>
-              <InputLabel htmlFor={name}>{label}</InputLabel>
+                {hasError && <FormHelperText>{errors[name]}</FormHelperText>}
+              </>
+            ) : (
               <TextField
                 id={name}
                 name={name}
                 type={type}
                 value={values[name]}
                 onChange={handleChange}
-                error={Boolean(touched[name] && errors[name])}
-                helperText={touched[name] && errors[name] ? errors[name] : ""}
+                error={hasError}
+                helperText={hasError ? errors[name] : ""}
+                label={label}
               />
-            </>
-          )}
-        </FormControl>
-      ))}
+            )}
+          </FormControl>
+        );
+      })}
     </div>
   );
 };

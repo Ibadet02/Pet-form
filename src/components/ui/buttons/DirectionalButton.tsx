@@ -3,6 +3,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useSteps } from "../../../context/StepsContext";
 import { FormikValues } from "../../../types/form";
 import { FormikProps } from "formik";
+import isFormValid from "../../../utils/isFormValid";
 
 interface DirectionalButtonProps {
   direction: "left" | "right";
@@ -14,26 +15,15 @@ const DirectionalButton = ({ direction, formik }: DirectionalButtonProps) => {
   const isNext = direction === "right";
 
   const handleNext = async () => {
-    try {
-      if (formik && isNext) {
-        const errors = await formik.validateForm();
-        const errorLength = Object.keys(errors).length;
-
-        if (errorLength === 0) {
-          moveToRight();
-        } else {
-          formik.setTouched(
-            Object.keys(errors).reduce(
-              (acc, key) => ({ ...acc, [key]: true }),
-              {}
-            )
-          );
-        }
-      } else if (!isNext) {
-        moveToLeft();
+    if (isNext) {
+      const isValid = await isFormValid(formik);
+      console.log("isNext: ", isNext);
+      console.log("isValid: ", isValid);
+      if (isValid) {
+        moveToRight();
       }
-    } catch (err) {
-      console.log("Error while validating the form: ", err);
+    } else {
+      moveToLeft();
     }
   };
   return (
