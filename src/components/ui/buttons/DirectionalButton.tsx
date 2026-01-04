@@ -15,12 +15,11 @@ const DirectionalButton = ({ direction, formik }: DirectionalButtonProps) => {
   const isNext = direction === "right";
 
   const handleNext = async () => {
-    if (isNext) {
+    const isValid = await isFormValid(formik);
+
+    if (isNext && isValid) {
       moveToRight();
-      const isValid = await isFormValid(formik);
-      if (isValid) {
-      }
-    } else {
+    } else if (!isNext) {
       moveToLeft();
     }
   };

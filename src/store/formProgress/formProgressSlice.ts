@@ -22,7 +22,7 @@ const formProgressSlice = createSlice({
       const currIndex = state.findIndex((step) => step.currentStep);
       const isStepValidated = state[currIndex].isValidated;
 
-      if (true && state[currIndex + 1]) {
+      if (state[currIndex + 1]) {
         state[currIndex].currentStep = false;
         state[currIndex + 1].currentStep = true;
       }

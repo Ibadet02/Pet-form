@@ -20,7 +20,6 @@ interface StepContentProps {
 
 const StepContent = ({ formik }: StepContentProps) => {
   const { currentStep } = useSteps();
-  console.log(currentStep);
   const { values, handleChange, touched, errors } = formik;
 
   const getFields = () => {

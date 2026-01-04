@@ -29,7 +29,7 @@ const FormProgress = ({ formik }: FormProgressProps) => {
       {numberedStepKeys.map((stepKey, i) => {
         const stepNumber = i + 1;
         return (
-          <Button onClick={() => handleNavigation(stepNumber)} key={stepKey}>
+          <Button onClick={() => handleNavigation(i)} key={stepKey}>
             {stepNumber}
           </Button>
         );
