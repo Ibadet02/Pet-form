@@ -20,14 +20,15 @@ interface StepContentProps {
 
 const StepContent = ({ formik }: StepContentProps) => {
   const { currentStep } = useSteps();
+  console.log(currentStep);
   const { values, handleChange, touched, errors } = formik;
 
   const getFields = () => {
-    if (currentStep === 1) {
+    if (currentStep === 0) {
       return OWNER_INFO_FIELDS;
     }
 
-    if (currentStep === 2) {
+    if (currentStep === 1) {
       return PET_INFO_FIELDS;
     }
 

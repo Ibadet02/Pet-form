@@ -5,7 +5,7 @@ type StepProps = PropsWithChildren & {
 };
 
 const Step = ({ isCurrentStep, children }: StepProps) => {
-  return <>{isCurrentStep && <div>{children}</div>}</>;
+  return <>{isCurrentStep && <div className="step">{children}</div>}</>;
 };
 
 export default Step;

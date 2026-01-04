@@ -6,40 +6,31 @@ type ProgressState = {
   isValidated: boolean;
 }[];
 
-const initialState: ProgressState = [
-  {
-    currentStep: true,
+const initialState: ProgressState = Array.from(
+  { length: numberOfSteps },
+  (_, i) => ({
+    currentStep: i === 0,
     isValidated: false,
-  },
-  {
-    currentStep: false,
-    isValidated: false,
-  },
-  {
-    currentStep: false,
-    isValidated: false,
-  },
-];
+  })
+);
 
 const formProgressSlice = createSlice({
   name: "formProgress",
   initialState,
   reducers: {
     next: (state) => {
-      console.log(state);
       const currIndex = state.findIndex((step) => step.currentStep);
       const isStepValidated = state[currIndex].isValidated;
 
-      if (isStepValidated && state[currIndex + 1]) {
+      if (true && state[currIndex + 1]) {
         state[currIndex].currentStep = false;
         state[currIndex + 1].currentStep = true;
       }
     },
     previous: (state) => {
       const currIndex = state.findIndex((step) => step.currentStep);
-      const isStepValidated = state[currIndex].isValidated;
 
-      if (isStepValidated && state[currIndex - 1]) {
+      if (state[currIndex - 1]) {
         state[currIndex].currentStep = false;
         state[currIndex - 1].currentStep = true;
       }
@@ -48,7 +39,7 @@ const formProgressSlice = createSlice({
       const currIndex = state.findIndex((step) => step.currentStep);
       const isStepValidated = state[currIndex].isValidated;
 
-      if (isStepValidated) {
+      if (true) {
         state[currIndex].currentStep = false;
         state[action.payload].currentStep = true;
       }
